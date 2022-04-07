@@ -16,10 +16,7 @@ public class ShootControl : MonoBehaviour
     {
         Instance = this;
     }
-    private void Start()
-    {
-        
-    }
+
 
     public void Fire()
     {

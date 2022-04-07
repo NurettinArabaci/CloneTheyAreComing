@@ -25,9 +25,15 @@ public class GameManager : MonoBehaviour
         PlayerController.limitX = 11;
     }
 
-    public void EnabledOpenClose(GameObject player, GameObject enemiesParent, bool isEnabled)
+    public void EnabledOpenClose(GameObject playerParent, GameObject enemiesParent, bool isEnabled)
     {
-        player.transform.GetChild(2).GetComponent<Animator>().enabled = isEnabled;
+        for (int i = 0; i < playerParent.transform.childCount; i++)
+        {
+            playerParent.transform.GetChild(i).GetChild(2).GetComponent<Animator>().enabled = isEnabled;
+            playerParent.transform.GetChild(i).GetChild(0).GetChild(0).gameObject.SetActive(isEnabled);
+        }
+        
+        
 
         for (int i = 0; i < enemiesParent.transform.childCount; i++)
         {

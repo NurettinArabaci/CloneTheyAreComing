@@ -7,7 +7,7 @@ using Cinemachine;
 
 public class GameEndPoints : MonoBehaviour
 {
-    [SerializeField] GameObject prefab;
+    [SerializeField] GameObject prefab,playerParent,enemiesParent;
 
     [SerializeField]CinemachineVirtualCameraBase vcam;
 
@@ -50,7 +50,7 @@ public class GameEndPoints : MonoBehaviour
         if (other.tag=="PlayerChild")
         {
 
-            other.transform.parent = endPoint[playerQueue].transform;
+            //other.transform.parent = endPoint[playerQueue].transform;
             other.transform.DOMove(endPoint[playerQueue].transform.position, 1.5f);
 
             //isEnd = true;
@@ -85,6 +85,7 @@ public class GameEndPoints : MonoBehaviour
     void SuccessLevel()
     {
         ButtonController.Instance.nextLevelBut.gameObject.SetActive(true);
+        GameManager.Instance.EnabledOpenClose(playerParent, enemiesParent, false);
         PlayerPrefs.SetInt("Score", PlayerPrefs.GetInt("Score") + BulletController.scoreAmount);
 
         ButtonController.Instance.totalScore.text = PlayerPrefs.GetInt("Score").ToString();

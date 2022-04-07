@@ -6,24 +6,16 @@ public class ColliderController : MonoBehaviour
 {
     public static ColliderController Instance;
 
-    
 
     private void Awake()
     {
         Instance = this;
     }
 
-    private void Start()
-    {
-        
-    }
-
     private void OnTriggerEnter(Collider other)
     {
         if (other.tag=="Enemy"|| other.tag == "Obstacle")
         {
-           
-            transform.GetChild(0).GetChild(0).GetComponent<ShootControl>().enabled = false;
 
             ObjectPooling.Instance.BackToPool(transform.gameObject, "PlayerChild");
             StackController.playerChildAmount--;
@@ -37,6 +29,21 @@ public class ColliderController : MonoBehaviour
 
         }
 
+    }
+
+    private void OnEnable()
+    {
+        ShootOpenCLose(true);
+    }
+
+    private void OnDisable()
+    {
+        ShootOpenCLose(false);
+    }
+
+    public void ShootOpenCLose(bool isOpen)
+    {
+        transform.GetChild(0).GetChild(0).GetComponent<ShootControl>().enabled = isOpen;
     }
 
    
