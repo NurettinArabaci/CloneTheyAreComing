@@ -63,5 +63,7 @@ public class ChangeGun : MonoBehaviour
         {
             bulletParent.transform.GetChild(i).GetComponent<TrailRenderer>().startColor = color;
         }
+
+        gameObject.SetActive(false);
     }
 }

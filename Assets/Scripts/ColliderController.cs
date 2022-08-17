@@ -23,6 +23,7 @@ public class ColliderController : MonoBehaviour
 
             if (StackController.playerChildAmount <= 0)
             {
+                EventManager.Fire_OnStopMove();
                 ButtonController.Instance.restartBut.gameObject.SetActive(true);
                 GameManager.Instance.StopMovement();
             }
