@@ -19,11 +19,12 @@ public class PlayerController : MonoBehaviour
     private void Start()
     {
         playerInputs.PlayerMovement.Movement.performed += OnMoveX;
+
     }
 
     private void Update()
     {
-        transform.Translate(new Vector3(0, 0, speed*Time.deltaTime*-1));
+        OnMoveZ();
     }
 
 
@@ -35,7 +36,13 @@ public class PlayerController : MonoBehaviour
             transform.position -= new Vector3(xAxis / 6, 0, 0);
             transform.position = new Vector3(Mathf.Clamp(transform.position.x, -limitX, limitX), transform.position.y, transform.position.z);  
         }
+        
 
+    }
+
+    private void OnMoveZ()
+    {
+        transform.Translate(Vector3.back * speed * Time.deltaTime);
     }
 
     private void OnEnable()
@@ -46,5 +53,7 @@ public class PlayerController : MonoBehaviour
     {
         playerInputs.Disable();
     }
+
+
 
 }

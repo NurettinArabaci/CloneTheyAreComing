@@ -9,6 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3398780088450425925}
+  - component: {fileID: 2161085343916780319}
   - component: {fileID: -4733919896918787355}
   - component: {fileID: 1166955532}
   - component: {fileID: 1166955533}
@@ -35,6 +36,20 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2161085343916780319
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3398780088450425924}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a2f67116038e94b119a89ab9ed4d829d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  anim: {fileID: 9097396395701711950}
+  navMeshFollow: {fileID: 1166955532}
 --- !u!65 &-4733919896918787355
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -394,5 +409,10 @@ PrefabInstance:
 --- !u!4 &2927442042030517812 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 8a5527581a6c9494bba1b0ac08d61998, type: 3}
+  m_PrefabInstance: {fileID: 3398780088311384543}
+  m_PrefabAsset: {fileID: 0}
+--- !u!95 &9097396395701711950 stripped
+Animator:
+  m_CorrespondingSourceObject: {fileID: 5866666021909216657, guid: 8a5527581a6c9494bba1b0ac08d61998, type: 3}
   m_PrefabInstance: {fileID: 3398780088311384543}
   m_PrefabAsset: {fileID: 0}

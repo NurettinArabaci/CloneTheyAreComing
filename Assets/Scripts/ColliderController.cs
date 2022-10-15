@@ -14,39 +14,23 @@ public class ColliderController : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.tag=="Enemy"|| other.tag == "Obstacle")
+        if (other.GetComponent<IAttackable>() != null)
         {
-
-            ObjectPooling.Instance.BackToPool(transform.gameObject, "PlayerChild");
+            other.GetComponent<IAttackable>().Attack();
+            ObjectPooling.Instance.BackToPool(gameObject, "PlayerChild");
             StackController.playerChildAmount--;
-            PlayerCount.playerCount.text = StackController.playerChildAmount.ToString();
+            //PlayerCount.playerCount.text = StackController.playerChildAmount.ToString();
 
             if (StackController.playerChildAmount <= 0)
             {
                 EventManager.Fire_OnStopMove();
                 ButtonController.Instance.restartBut.gameObject.SetActive(true);
                 GameManager.Instance.StopMovement();
+                GameManager.Instance.gameState = GameState.Lose;
             }
 
         }
 
     }
-
-    private void OnEnable()
-    {
-        ShootOpenCLose(true);
-    }
-
-    private void OnDisable()
-    {
-        ShootOpenCLose(false);
-    }
-
-    public void ShootOpenCLose(bool isOpen)
-    {
-        transform.GetChild(0).GetChild(0).GetComponent<ShootControl>().enabled = isOpen;
-    }
-
-   
 
 }

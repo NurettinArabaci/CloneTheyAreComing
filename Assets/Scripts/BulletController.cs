@@ -9,9 +9,13 @@ public class BulletController : MonoBehaviour
 
     public static int scoreAmount = 0;
 
+
+    Rigidbody rb;
+
     private void Awake()
     {
         objectPooling = ObjectPooling.Instance;
+        rb = GetComponent<Rigidbody>();
     }
 
     private void Start()
@@ -21,28 +25,39 @@ public class BulletController : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.tag == "Enemy")
+        if (other.CompareTag("Enemy"))
         {
-            objectPooling.BackToPool(transform.gameObject, "Bullet");
-            other.transform.GetChild(0).GetComponent<Animator>().SetBool("die", true);
+            objectPooling.BackToPool(gameObject, "Bullet");
 
-            ComponentChange(other.gameObject, false,"DeathEnemy");
+            other.GetComponent<Enemy>().Die();
 
             scoreAmount+=3;
             ButtonController.Instance.scoreText.text = scoreAmount.ToString();
         }
 
-        else if (other.tag == "Ground")
-        {
-            objectPooling.BackToPool(transform.gameObject, "Bullet");
-        }
     }
 
-    public static void ComponentChange(GameObject go, bool isEnabled,string newTag)
+    private void OnEnable()
     {
-        go.tag = newTag;
-        go.GetComponent<NavMeshFollow>().enabled = isEnabled;
-        go.GetComponent<NavMeshAgent>().enabled = isEnabled;
-        
+        rb.AddForce(Vector3.back * 100);
+        StartCoroutine(ShootSpeedControl());
     }
+    private void OnDisable()
+    {
+        rb.velocity = Vector3.zero;
+    }
+
+    IEnumerator ShootSpeedControl()
+    {
+        yield return new WaitForSeconds(0.05f);
+        rb.velocity = rb.velocity.normalized * 50;
+
+        yield return new WaitForSeconds(2);
+        if (gameObject.activeSelf)
+        {
+            ObjectPooling.Instance.BackToPool(gameObject, "Bullet");
+        }
+
+    }
+    
 }

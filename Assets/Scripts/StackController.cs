@@ -53,14 +53,14 @@ public class StackController : MonoBehaviour
             sumNumber = operatorAmount;
             playerChildAmount += sumNumber;
             operatorAmount = sumNumber;
-            PlayerCount.playerCount.text = playerChildAmount.ToString();
+            //PlayerCount.playerCount.text = playerChildAmount.ToString();
         }
         else if (sumOrMult == OperatorTypes.Mult)
         {
             multNumber = operatorAmount;
             operatorAmount = (multNumber - 1) * playerChildAmount;
             playerChildAmount = multNumber * playerChildAmount;
-            PlayerCount.playerCount.text = playerChildAmount.ToString();
+            //PlayerCount.playerCount.text = playerChildAmount.ToString();
         }
     }
 

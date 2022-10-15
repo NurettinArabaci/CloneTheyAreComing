@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
-public static class EventManager
+public static partial class EventManager
 {
     public static event System.Action OnStopMove;
     public static void Fire_OnStopMove() { OnStopMove?.Invoke(); }
@@ -12,17 +12,23 @@ public static class EventManager
 public class NavMeshFollow : MonoBehaviour
 {
     NavMeshAgent nav;
-    Animator enemyAnim;
 
-    void Start()
+    public bool isDeath;
+
+    void Awake()
     {
         nav = GetComponent<NavMeshAgent>();
-        enemyAnim = GetComponentInChildren<Animator>();
         
     }
     private void Update()
     {
-        if (!GameEndPoints.isEnd)
+        if (isDeath)
+        {
+            OnStopMove();
+            return;
+        }
+
+        if (GameManager.Instance.gameState==GameState.Play)
         {
             nav.destination = GameObject.FindGameObjectWithTag("Player").transform.position;
         }
@@ -31,16 +37,16 @@ public class NavMeshFollow : MonoBehaviour
 
     void OnStopMove()
     {
-        GameEndPoints.isEnd = true;
+        //GameEndPoints.isEnd = true;
         nav.enabled = false;
-        enemyAnim.enabled = false;
         
     }
 
     private void OnEnable()
     {
         EventManager.OnStopMove += OnStopMove;
-
+        isDeath = false;
+        nav.enabled = true;
 
     }
 

@@ -9,10 +9,6 @@ public class ButtonController : MonoBehaviour
     [HideInInspector]
     public Button playBut, restartBut, nextLevelBut;
 
-    [SerializeField] CinemachineVirtualCameraBase vcam;
-
-    public GameObject playerParent, enemies;
-
     public Text scoreText,totalScore;
 
     [SerializeField] Text levelText;
@@ -29,14 +25,13 @@ public class ButtonController : MonoBehaviour
 
     private void Start()
     {
-        GameManager.Instance.EnabledOpenClose(playerParent, enemies, false);
+        
         levelText.GetComponent<Text>().text = "Level " + (PlayerPrefs.GetInt("Level")+1).ToString();
     }
 
     public void PlayButton()
     {
         playBut.gameObject.SetActive(false);
-        GameManager.Instance.EnabledOpenClose(playerParent, enemies, true);
         GameManager.Instance.StartMovement();
     }
 
@@ -54,7 +49,6 @@ public class ButtonController : MonoBehaviour
         nextLevelBut.gameObject.SetActive(false);
         BulletController.scoreAmount = 0;
         GameManager.Instance.StopMovement();
-        vcam.m_Priority = 8;
 
     }
 
